@@ -5,7 +5,7 @@ import torchvision
 
 from model import Model
 
-NUM_EPOCHS = 5
+NUM_EPOCHS = 1
 
 
 class Trainer:
@@ -27,6 +27,7 @@ class Trainer:
         test_dataset = torchvision.datasets.CIFAR10(root=datasets_path, train=False, download=True, transform=transforms)
 
         batch_size = kwargs.get('batch_size')
+
         self.train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
         self.test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
@@ -37,13 +38,12 @@ class Trainer:
 
         self.criterion = torch.nn.CrossEntropyLoss()
 
-        print(self.model)
-
     def run(self):
         for epoch in range(NUM_EPOCHS):
             self.model.train()
             running_loss = 0.0
             for i, (images, labels) in enumerate(self.train_loader):
+
                 images, labels = images.to(self.device), labels.to(self.device)
 
                 outputs = self.model(images)

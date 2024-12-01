@@ -12,7 +12,7 @@ def load_training_params(genes: str):
         'color_jitter': int(genes[3]),
         'batch_size': int(np.interp(genes[4], [0, 1], [4, 64])),
         'learning_rate': np.interp(genes[5], [0, 1], [1e-6, 1e-2]),
-        'num_conv_layers': int(np.interp(int(genes[6]), [0, 1], [1, 3])),
+        'num_conv_layers': 3,
         'conv_kernels_sizes': [
             int(np.interp(int(genes[7 + i]), [0, 1], [1, 4])) for i in range(3)
         ],
@@ -26,7 +26,6 @@ def load_training_params(genes: str):
             int(np.interp(int(genes[16 + i]), [0, 1], [1, 3])) for i in range(3)
         ],
     }
-    print(params)
 
     return params
 
@@ -40,6 +39,7 @@ def fitness_function(ga_instance, solution, solution_idx):
     trainer = Trainer(**params)
     score = trainer.run()
 
+    print("Evaluated params: {}, loss: {}".format(params, score))
     return score
 
 num_individuals = 10
