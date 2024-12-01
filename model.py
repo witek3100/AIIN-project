@@ -3,6 +3,9 @@ import torch.nn as nn
 
 
 class Model(nn.Module):
+    """
+    Class responsible for building the model from given parameters.
+    """
     def __init__(self, input_channels=3, num_classes=10, **kwargs):
         super(Model, self).__init__()
 

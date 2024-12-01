@@ -9,9 +9,12 @@ NUM_EPOCHS = 1
 
 
 class Trainer:
-    def __init__(self, datasets_path: str = './data', **kwargs):
-        transforms = []
+    """
+    Class responsible for model initialisation and training for given solution.
 
+    **kwargs contains training and model parameters
+    """
+    def __init__(self, datasets_path: str = './data', **kwargs):
         transforms = torchvision.transforms.Compose([
             torchvision.transforms.RandomHorizontalFlip(),
             torchvision.transforms.RandomVerticalFlip(),
@@ -39,6 +42,11 @@ class Trainer:
         self.criterion = torch.nn.CrossEntropyLoss()
 
     def run(self):
+        """
+        Performs model training, returns accuracy on test dataset afterwards.
+
+        :return:  accuracy on test dataset
+        """
         for epoch in range(NUM_EPOCHS):
             self.model.train()
             running_loss = 0.0
